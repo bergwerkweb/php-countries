@@ -30,13 +30,16 @@ class Countries
         return $countries;
     }
 
-    public function getByName(string $name)
+    public function getByName(string $name, string $separator=',')
     {
+        $countries_name = explode($separator, $name);
+        $countries_name = array_map('trim', $countries_name);
         foreach ($this->all() as $country) {
-            if ($country->name == $name || $country->officialName == $name) {
-                return $country;
+            if (in_array($country->name, $countries_name) || in_array($country->officialName, $countries_name) || !empty(array_intersect($countries_name, $country->altSpellings))){
+                $result[$country->isoCodeAlpha2] = $country;
             }
         }
+        return $result;
     }
 
     public function getByIsoCode(string $code)

@@ -37,6 +37,7 @@ class MledozeCountriesJson implements DataSourceInterface
         foreach ($this->countryData as $countryDataItem) {
             $country = new Country();
             $country->name = $countryDataItem->name->common;
+            $country->altSpellings = $countryDataItem->altSpellings;
             $country->officialName = $countryDataItem->name->official;
             $country->topLevelDomains = $countryDataItem->tld;
             $country->isoCodeAlpha2 = $countryDataItem->cca2;
@@ -44,8 +45,8 @@ class MledozeCountriesJson implements DataSourceInterface
             $country->isoCodeNumeric = $countryDataItem->ccn3;
             $country->languages = array_values((array) $countryDataItem->languages);
             $country->languageCodes = array_keys((array) $countryDataItem->languages);
-            $country->currencyCodes = $countryDataItem->currency;
-            $country->callingCodes = $countryDataItem->callingCode;
+            $country->currenciesCodes = array_keys((array) $countryDataItem->currencies);
+            $country->currencies = array_values((array) $countryDataItem->currencies);
             $country->capital = $countryDataItem->capital;
             $country->region = $countryDataItem->region;
             $country->subregion = $countryDataItem->subregion;
