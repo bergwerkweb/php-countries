@@ -32,6 +32,7 @@ class Countries
 
     public function getByName(string $name, string $separator=',')
     {
+        $result = [];
         $countries_name = explode($separator, $name);
         $countries_name = array_map('trim', $countries_name);
         foreach ($this->all() as $country) {
